@@ -1,0 +1,148 @@
+﻿@using MasterMoltyfoam.Models.Utility
+@model EditUserViewModel
+<br />
+<h2 class="text-info">Edit Customer</h2>
+<br />
+<div class="whiteBackground border row">
+    <div class="col-8">
+        <form asp-action="Edit" asp-controller="Users" method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="picture" />
+            <div class="form-group row">
+                <div class="col-4 ">
+                    <label asp-for="Id" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input readonly asp-for="Id" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Id"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 ">
+                    <label asp-for="UserName" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="UserName" class="form-control" />
+                    <span class="text-danger" asp-validation-for="UserName"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 ">
+                    <label asp-for="FullName" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="FullName" class="form-control" />
+                    <span class="text-danger" asp-validation-for="FullName"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 ">
+                    <label asp-for="Email" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Email" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 ">
+                    <label asp-for="PhoneNumber" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                </div>
+            </div>
+           @* <div class="form-group row">
+                <div class="col-4 ">
+                    <label class="col-form-label">Role</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Roles[0]" class="form-control" />
+                    <span class="text-danger" asp-validation-for="Roles[0]"></span>
+                </div>
+            </div>*@
+           
+
+                <div class="form-group row">
+                    <div class="col-4 ">
+                    </div>
+                    <div class="col-8">
+
+                        @if (Model.Roles[0] == SD.ManagerUser)
+                        {
+                            <label class="form-check-label">
+                                <input checked type="radio" name="rdUserRole" value="@SD.ManagerUser" />@SD.ManagerUser
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label">
+                                <input type="radio" name="rdUserRole" value="@SD.ManagerUser" />@SD.ManagerUser
+                            </label>
+                        }
+                        @if (Model.Roles[0] == SD.SalesmenUser)
+                        {
+                            <label class="form-check-label">
+                                <input checked type="radio" name="rdUserRole" value="@SD.SalesmenUser" />@SD.SalesmenUser
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label">
+                                <input type="radio" name="rdUserRole" value="@SD.SalesmenUser" />@SD.SalesmenUser
+                            </label>
+                        }
+                        @if (Model.Roles[0] == SD.ClientUser)
+                        {
+                            <label class="form-check-label">
+                                <input checked type="radio" name="rdUserRole" value="@SD.ClientUser" />@SD.ClientUser
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="form-check-label">
+                                <input type="radio" name="rdUserRole" value="@SD.ClientUser" />@SD.ClientUser
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4 ">
+                    <label asp-for="picture" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" multiple asp-for="picture" class="form-control" />
+                </div>
+            </div>
+
+          
+
+
+            <div class="form-group row">
+                <div class="col-5 offset-2">
+                    <partial name="_EditAndBackToListButtonsPartial" />
+                </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="col-3 offset-1">
+        @if (Model.picture != null)
+        {
+            <img src="@("data:image/png;base64," + Convert.ToBase64String(@Model.picture))" style="width:100%;border:1px solid #ddd;border-radius:10%" />
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+
+
+

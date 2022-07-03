@@ -1,0 +1,62 @@
+﻿@model Customer
+<br />
+<h2 class="text-info">Delete Customer</h2>
+<br />
+  <div class="whiteBackground border row">
+      <div class="col-8">
+<form asp-action="Delete" method="post">
+  
+        
+        <input type="hidden"asp-for="Id" />
+         <input type="hidden"asp-for="Picture" />
+        <div class="form-group row">
+            <div class="col-4 ">
+                <label asp-for="Name" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Name"readonly class="form-control" />
+               
+            </div>
+        </div>
+          <div class="form-group row">
+            <div class="col-4 ">
+                <label asp-for="Mobile" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <input readonly asp-for="Mobile" class="form-control" />
+              
+            </div>
+        </div>
+          
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Address" class="col-form-label"></label>
+            </div>
+            <div class="col-8">
+                <input readonly asp-for="Address" class="form-control" />
+             
+            </div>
+        </div>
+       
+
+        
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <partial name="_DeleteAndBackToListButtons" />
+            </div>
+
+        </div>
+        </form>
+        </div>
+        <div class="col-3 offset-1">
+           @if(Model.Picture !=null){
+            <img src="@("data:image/png;base64," + Convert.ToBase64String(@Model.Picture))" style="width:100%;border:1px solid #ddd;border-radius:10%" />
+            }
+        </div>
+    </div>
+
+@section Scripts{ 
+<partial name="_ValidationScriptsPartial" />
+}
+
+

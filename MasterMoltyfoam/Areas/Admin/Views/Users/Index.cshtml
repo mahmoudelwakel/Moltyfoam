@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+
+    }
+}
+
+<h1>index</h1>
+<div class="whiteBackground border">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Users</h2>
+
+        </div>
+        <div class="text-right col-6">
+            <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">
+                <i class="fas fa-plus"></i>&nbsp; New Salesmen Register
+            </a>
+        </div>
+
+    </div>
+    @if (Model.Count() == 0)
+    {
+        <p class="text-danger">No Users.....</p>
+    }
+    else
+    {
+        <table class="table table-striped border">
+            <tr class="table-secondary">
+                <th>@Html.DisplayNameFor(e=>e.UserName)</th>
+                <th>@Html.DisplayNameFor(e=>e.FullName)</th>
+                <th>@Html.DisplayNameFor(e=>e.Email)</th>
+                <th>@Html.DisplayNameFor(e=>e.PhoneNumber)</th>
+                <th>@Html.DisplayNameFor(e=>e.Picture)</th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(e=>item.UserName)</td>
+                    <td>@Html.DisplayFor(e=>item.FullName)</td>
+                    <td>@Html.DisplayFor(e=>item.Email)</td>
+                    <td>@Html.DisplayFor(e=>item.PhoneNumber)</td>
+                    @if (item.Picture != null)
+                    {
+                        <td><img src="@("data:image/png;base64," + Convert.ToBase64String(item.Picture))" style="width:50%;height:50px;border:1px solid #ddd;border-radius:10%" /></td>
+                    }
+
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>
+                        @if (item.LockoutEnd == null || item.LockoutEnd < DateTime.Now)
+                        {
+                            <a asp-action="LockUnLock" class="btn btn-success" asp-route-id="@item.Id">
+                                <i class="fas fa-lock-open"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="LockUnLock" class="btn btn-danger" asp-route-id="@item.Id">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        }
+                          <a asp-action="Edit"asp-controller="Users"asp-area="Admin" class="btn btn-primary" asp-route-id="@item.Id">
+                               <i class="fa-solid fa-user-pen"></i>
+                            </a>
+
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <partial name="_UserPager"model="@pager" />
+
+    }
+
+</div>
+
+
+
+

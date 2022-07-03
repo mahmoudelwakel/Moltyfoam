@@ -1,0 +1,113 @@
+﻿ @page
+@using MasterMoltyfoam.Models.Utility
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+<br />
+<h2 class="text-info">Create New Account</h2>
+<br />
+
+
+<form asp-route-returnUrl="@Model.ReturnUrl" method="post"enctype="multipart/form-data">
+    <div class="whiteBackground border">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Input.UserName"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Input.UserName" class="form-control" />
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"><label asp-for="Input.FullName"></label></div>
+            <div class="col-5">
+                <input asp-for="Input.FullName" class="form-control" />
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+            </div>
+
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Input.Email"></label>
+            </div>
+            <div class="col-5">
+
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Input.Password"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-2"> <label asp-for="Input.ConfirmPassword"></label></div>
+            <div class="col-5">
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+        </div>
+        @if (User.IsInRole(SD.ManagerUser))
+        {
+              <div class="form-group row">
+            <div class="col-2 ">
+                <label asp-for="Input.picture" class="col-form-label"></label>
+            </div>
+            <div class="col-5">
+                <input type="file" multiple asp-for="Input.picture" class="form-control" />
+            </div>
+        </div>
+            <div class="form-group row">
+                <div class="col-2 ">
+                </div>
+                <div class="col-5">
+                    <label class="form-check-label">
+                        <input checked type="radio" name="rdUserRole" value="@SD.ManagerUser" />@SD.ManagerUser
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" name="rdUserRole" value="@SD.ClientUser" />@SD.ClientUser
+                    </label>
+                    <label class="form-check-label">
+                        <input type="radio" name="rdUserRole" value="@SD.SalesmenUser" />@SD.SalesmenUser
+                    </label>
+                </div>
+            </div>
+        }
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="Input.PhoneNumber"></label>
+            </div>
+            <div class="col-5">
+                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+        </div>
+        <div class="form-group row">
+            <div class="col-5 offset-2">
+                <button type="submit" class="btn btn-primary form-control">Register</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
